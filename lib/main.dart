@@ -1,79 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
+import 'package:flutter_auth/constants.dart';
 
-void main() {
-  runApp(LoginApp());
-}
+void main() => runApp(const MyApp());
 
-class LoginApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Page',
-      theme: ThemeData(primarySwatch: Colors.yellow),
-      home: LoginPage(),
-    );
-  }
-}
-
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  bool _isProcessing = false;
-
-  void _login() {
-    // Simulate login process (replace with your actual logic)
-    setState(() {
-      _isProcessing = true;
-    });
-
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _isProcessing = false;
-      });
-
-      // Navigate to next screen on successful login
-      // For now, let's just print a message
-      print("Logged in successfully!");
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Login Page')),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
-              ),
-              SizedBox(height: 12.0),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Password'),
-              ),
-              SizedBox(height: 20.0),
-              _isProcessing
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
-                      onPressed: _login,
-                      child: Text('Login'),
-                    ),
-            ],
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Auth',
+      theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: kPrimaryColor,
+              shape: const StadiumBorder(),
+              maximumSize: const Size(double.infinity, 56),
+              minimumSize: const Size(double.infinity, 56),
+            ),
           ),
-        ),
-      ),
+          inputDecorationTheme: const InputDecorationTheme(
+            filled: true,
+            fillColor: kPrimaryLightColor,
+            iconColor: kPrimaryColor,
+            prefixIconColor: kPrimaryColor,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: defaultPadding, vertical: defaultPadding),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide.none,
+            ),
+          )),
+      home: const WelcomeScreen(),
     );
   }
 }
